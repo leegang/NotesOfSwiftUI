@@ -1,6 +1,5 @@
 # Views 和and modifiers
 
-<!-- TOC -->autoauto- [Views 和and modifiers](#views-和and-modifiers)auto    - [为什么SwiftUI 的views使用结构体structs ?](#为什么swiftui-的views使用结构体structs-)auto    - [SwiftUI主视图的背景是什么？](#swiftui主视图的背景是什么)auto    - [为什么修饰符顺序很重要](#为什么修饰符顺序很重要)auto    - [为什么 SwiftUI 的view type使用 “some View” ?](#为什么-swiftui-的view-type使用-some-view-)auto    - [条件修饰器 condition modifiers](#条件修饰器-condition-modifiers)auto    - [环境修饰器Environment modifiers](#环境修饰器environment-modifiers)auto    - [Views作为参数 Views as properties](#views作为参数-views-as-properties)auto    - [Views组建 View composition](#views组建-view-composition)auto    - [自定义修饰器 Custom modifiers](#自定义修饰器-custom-modifiers)auto    - [自定义容器 Custom containers](#自定义容器-custom-containers)autoauto<!-- /TOC -->
 
 
 ## 为什么SwiftUI 的views使用结构体structs ?
@@ -28,13 +27,21 @@
 提示：如果您在视图中使用Class类，您可能会发现您的代码要么无法编译，要么在运行时崩溃。在这一点上相信我：使用结构体Struct。
 
 ## SwiftUI主视图的背景是什么？
+
 ## 为什么修饰符顺序很重要
+
 ## 为什么 SwiftUI 的view type使用 “some View” ?
+
 ## 条件修饰器 condition modifiers
+
 ## 环境修饰器Environment modifiers
+
 ## Views作为参数 Views as properties
+
 ## Views组建 View composition
+
 ## 自定义修饰器 Custom modifiers
+
 ## 自定义容器 Custom containers
 
 

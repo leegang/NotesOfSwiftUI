@@ -2,6 +2,6 @@
 
 ## 目录
 
-- [Views和modifiers](./Views%20andm%20odifiers.md)
+- [Views和modifiers](./NotesOfSwiftUI/Views%20and%20modifiers.md)
 
 翻译自  https://www.hackingwithswift.com/

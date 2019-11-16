@@ -2,6 +2,7 @@
 
 [TOC]
 
+
 ## 为什么SwiftUI 的views使用结构体structs ?
 
 如果您曾经用UIKit或AppKit（Apple最初用于iOS和macOS的用户界面框架）编程，您会知道它们使用Class而View来构造视图。 SwiftUI并非如此：我们更喜欢将结构体Struct用于整体视图View，这有两个原因。

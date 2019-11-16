@@ -14,6 +14,7 @@
     - [Views组件 View composition](#views组件-view-composition)
     - [自定义修饰器 Custom modifiers](#自定义修饰器-custom-modifiers)
     - [自定义容器 Custom containers](#自定义容器-custom-containers)
+        - [拓展：试图生成器view builders](#拓展试图生成器view-builders)
 
 <!-- /TOC -->
 
@@ -492,6 +493,86 @@ Color.blue
 
 ## 自定义容器 Custom containers
 
+尽管您不太可能经常这样做，但我想至少告诉您，完全可以在SwiftUI应用中创建自定义容器。 这需要更高级的Swift知识，因为它利用了Swift的一些强大功能，因此，如果你看不懂的地方太多，可以跳过。
 
+为了进行测试，我们将创建一种新型的名为```GridStack```的堆栈，它将使我们能够在网格内创建任意数量的视图。 我们要说的是，有一个名为```GridStack```的新结构，该结构符合```View```协议并具有一定数量的行和列，并且在网格内部将有许多内容单元格，它们本身必须符合View协议。
 
+在Swift中，我们可以这样写：
+```swift
+struct GridStack<Content: View>: View {
+    let rows: Int
+    let columns: Int
+    let content: (Int, Int) -> Content
+
+    var body: some View {
+        // more to come
+    }
+}
+```
+第一行– ```struct GridStack <Content：View>：View ``` –使用Swift的一个更高级的功能，称为泛型。在这种情况下，这意味着“您可以提供所需的任何种类的内容，但是无论内容如何，都必须符合View 在冒号之后，我们再次重复查看以说    ```GridStack```本身也符合View协议。
+
+请特别注意```let content```这一行-它定义了一个闭包，该闭包必须能够接受两个整数并返回我们可以显示的某种内容。
+
+我们需要通过结合多个垂直和水平堆栈以创建所需数量的单元格来完成```body```属性。 我们不需要说每个单元格中的内容，因为我们可以通过使用适当的行和列调用```content```闭包来实现。
+
+因此，我们可以这样填写：
+```swift
+var body: some View {
+    VStack {
+        ForEach(0 ..< rows) { row in
+            HStack {
+                ForEach(0 ..< self.columns) { column in
+                    self.content(row, column)
+                }
+            }
+        }
+    }
+}
+```
+
+现在我们有了一个自定义容器，我们可以使用它来编写一个视图，如下所示：
+
+```swift
+struct ContentView: View {
+    var body: some View {
+        GridStack(rows: 4, columns: 4) { row, col in
+            Text("R\(row) C\(col)")
+        }
+    }
+}
+```
+
+我们的`GridStack`能够接受任何种类的单元格内容，只要它符合View协议。 因此，如果需要，我们可以给单元格一个堆栈：
+```swift
+GridStack(rows: 4, columns: 4) { row, col in
+    HStack {
+        Image(systemName: "\(row * 4 + col).circle")
+        Text("R\(row) C\(col)")
+    }
+}
+```
+
+### 拓展：试图生成器view builders
+
+为了获得更大的灵活性，我们可以利用SwiftUI的一种称为视图生成器(view builders)的功能，该功能允许我们发送多个视图并将其形成隐式堆栈。
+
+要使用此功能，我们需要为```GridStack```结构体创建自定义初始化程序，以便可以将`content`闭包作为SwiftUI的视图构建器系统：
+```swift
+init(rows: Int, columns: Int, @ViewBuilder content: @escaping (Int, Int) -> Content) {
+    self.rows = rows
+    self.columns = columns
+    self.content = content
+}
+```
+多数情况下，这只是将参数直接复制到结构的属性中，但是请注意，这里有`@ViewBuilder`属性。 您还将看到`@escaping`属性，该属性使我们可以存储闭包，以便以后使用。
+
+有了适当的设置，SwiftUI现在将在我们的单元格闭合内部自动创建一个隐式水平堆栈：
+```swift
+GridStack(rows: 4, columns: 4) { row, col in
+    Image(systemName: "\(row * 4 + col).circle")
+    Text("R\(row) C\(col)")
+}
+```
+
+这两个选项均有效，因此无论您喜欢哪个都可以。
 

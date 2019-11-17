@@ -1,8 +1,8 @@
-# Views 和 modifiers
+# 1. Views 和 modifiers
 
 <!-- TOC -->
 
-- [Views 和and modifiers](#views-和and-modifiers)
+- [Views 和 modifiers](#views-和-modifiers)
     - [为什么SwiftUI 的views使用结构体structs ?](#为什么swiftui-的views使用结构体structs-)
     - [SwiftUI主视图的后面有什么？](#swiftui主视图的后面有什么)
     - [为什么修饰器顺序很重要](#为什么修饰器顺序很重要)
@@ -18,7 +18,7 @@
 
 <!-- /TOC -->
 
-## 为什么SwiftUI 的views使用结构体structs ?
+## 1.1. 为什么SwiftUI 的views使用结构体structs ?
 
 如果您曾经用UIKit或AppKit（Apple最初用于iOS和macOS的用户界面框架）编程，您会知道它们使用Class而View来构造视图。 SwiftUI并非如此：我们更喜欢将结构体Struct用于整体视图View，这有两个原因。
 
@@ -42,7 +42,7 @@
 
 提示：如果您在视图中使用Class类，您可能会发现您的代码要么无法编译，要么在运行时崩溃。在这一点上相信我：使用结构体Struct。
 
-## SwiftUI主视图的后面有什么？
+## 1.2. SwiftUI主视图的后面有什么？
 
 当刚开始使用SwiftUI时，我们会得到以下代码：
 ``` swift
@@ -94,7 +94,7 @@ Text("Hello World")
 
 
 
-## 为什么修饰器顺序很重要
+## 1.3. 为什么修饰器顺序很重要
 
 每当我们对一个SwiftUI视图应用一个修改器时，我们实际上是在创建一个新的视图，并应用了相应的修改。我们不只是修改现有的视图。仔细想想，这种行为是有意义的——我们的视图只包含我们提供给它们的属性，所以如果我们设置背景颜色或字体大小，就没有地方存储这些数据。
 
@@ -156,7 +156,7 @@ Text("Hello World")
 ```
 
 
-## 为什么 SwiftUI 的view type使用 “some View” ?
+## 1.4. 为什么 SwiftUI 的view type使用 “some View” ?
 
 SwiftUI非常依赖于一种称为“不透明的返回类型”的Swift功能，您每次编写```some View```时都可以看到它的实际效果。 这意味着“一种符合View协议的特定类型，但是我们不想说什么。”
 
@@ -219,7 +219,7 @@ Button("Hello World") {
 
 some View允许我们做的是写出“这将返回一种特定类型的视图，例如Button或Text，但是我不想这样写。”因此，View的这个“大洞”将由真实视图填补， 但是我们不需要写出确切的名字很长的类型。
 
-###拓展：SwiftUI如何处理Stack？
+### 1.4.1. 拓展：SwiftUI如何处理Stack？
 
 现在，如果您好奇的话，您可能想知道SwiftUI如何处理VStack之类的东西-它符合View协议，但是如果它可以包含很多内容，它将如何填补“它具有什么样的内容？”漏洞 里面不同的东西？
 
@@ -234,7 +234,7 @@ TupleView<(C0, C1, C2, C3, C4, C5, C6, C7, C8, C9)>
 这就是为什么SwiftUI不允许父级中超过10个视图的原因：他们编写了 ```TupleView``` 的版本，可以处理2个视图到10个视图，但不能超过10个视图。
 
 
-## 条件修饰器 condition modifiers
+## 1.5. 条件修饰器 condition modifiers
 
 如果希望修饰器仅在满足特定条件时才适用，在SwiftUI中，最简单的方法是使用三元运算符。
 
@@ -273,7 +273,7 @@ var body: some View {
 容。
 
 
-## 环境修饰器Environment modifiers
+## 1.6. 环境修饰器Environment modifiers
 
 许多修饰器可以应用于容器，这允许我们同时将相同的修饰器应用于多个视图。
 
@@ -323,7 +323,7 @@ VStack {
 没有办法提前知道哪些修改器是环境修饰器，哪些是常规修饰器--您试一下也就知道了。尽管如此，还是尽可能在任何地方应用一个修饰器，这样做比复制并粘贴相同的东西到多个地方要好得多。
 
 
-## Views作为属性 Views as properties
+## 1.7. Views作为属性 Views as properties
 
 有很多方法可以使在SwiftUI中使用复杂的视图层次结构变得更简单，其中一种选择是使用属性-将视图创建为自己视图的属性，然后在布局中使用该属性。
 
@@ -360,7 +360,7 @@ var motto1: some View { Text("Draco dormiens") }
 ```
 
 
-## Views组件 View composition
+## 1.8. Views组件 View composition
 SwiftUI使我们可以将复杂的视图分解为较小的视图，而不会产生太多的性能影响。 这意味着我们可以将一个大视图拆分为多个小视图，SwiftUI会为我们重新组装它们。
 
 例如，在这个视图中，我们有一种特殊的样式文本视图的方式-它们有一个大字体，一些填充，前景和背景颜色，加上一个胶囊形状：
@@ -422,7 +422,8 @@ VStack(spacing: 10) {
         .foregroundColor(.yellow)
 }   
 ```
-## 自定义修饰器 Custom modifiers
+
+## 1.9. 自定义修饰器 Custom modifiers
 
 SwiftUI为我们提供了一系列内置修饰器，例如```font（）```，```background（）```和 ```clipShape（）```。 但是，也可以创建自定义修饰器来完成特定的操作。
 
@@ -491,7 +492,7 @@ Color.blue
 ```
 提示：自定义视图修饰器在Xcode的早期版本中无法正常工作-您应确保使用最新版以获得最佳效果。
 
-## 自定义容器 Custom containers
+## 1.10. 自定义容器 Custom containers
 
 尽管您不太可能经常这样做，但我想至少告诉您，完全可以在SwiftUI应用中创建自定义容器。 这需要更高级的Swift知识，因为它利用了Swift的一些强大功能，因此，如果你看不懂的地方太多，可以跳过。
 
@@ -552,7 +553,7 @@ GridStack(rows: 4, columns: 4) { row, col in
 }
 ```
 
-### 拓展：试图生成器view builders
+### 1.10.1. 拓展：试图生成器view builders
 
 为了获得更大的灵活性，我们可以利用SwiftUI的一种称为视图生成器(view builders)的功能，该功能允许我们发送多个视图并将其形成隐式堆栈。
 

@@ -1,4 +1,4 @@
-# Views 和and modifiers
+# Views 和 modifiers
 
 <!-- TOC -->
 

@@ -233,3 +233,45 @@ Button(action: {
 
 ## 1.5. 显示警报消息弹窗Alert
 
+如果发生重要事件，通知用户的一种常用方法是使用警报Alert-弹出窗口，其中包含标题，消息和一到两个按钮（取决于您的需要）。
+
+但是请考虑一下：何时应该显示警报以及如何显示警报？ 视图是我们程序状态的函数，警报也不例外。 因此，我们不用说“显示警报”，而是创建警报并设置显示警报的条件。
+
+基本的SwiftUI警报具有标题，消息和一个关闭按钮，如下所示：
+```swift
+Alert(title: Text("Hello SwiftUI!"), message: Text("This is some detail message"), dismissButton: .default(Text("OK")))
+```
+您可以根据需要添加更多代码来更详细地配置按钮，但现在这样已经足够了。 更有趣的是我们如何显示警报：我们不将警报分配给变量，而是编写诸如`myAlert.show（）`之类的代码，因为这将回到旧的“事件系列（命令式编程）”思维方式。
+
+相反，我们创建一些状态来跟踪我们的警报是否正在显示，如下所示：
+```swift
+@State private var showingAlert = false
+```
+然后，我们将警报附加到用户界面的某处，告诉它使用该状态来确定是否显示警报。 SwiftUI将观察`showingAlert`，并在它变为`true`时显示警报。
+
+将所有这些放在一起，下面是一些示例代码，当点击按钮时显示警报：
+```swift
+struct ContentView: View {
+    @State private var showingAlert = false
+
+    var body: some View {
+        Button("Show Alert") {
+            self.showingAlert = true
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Hello SwiftUI!"), message: Text("This is some detail message"), dismissButton: .default(Text("OK")))
+        }
+    }
+}
+```
+这会将警报附加到按钮上，但是说实话，在哪里使用`alert（）`修饰器都没关系–我们要做的只是说警报存在，并且在`showalert`为`true`时显示。
+
+仔细看看`alert（）`修饰符：
+```swift
+.alert(isPresented: $showingAlert)
+```
+这是另一种双向数据绑定，这是因为SwiftUI会在点击弹窗的确定按钮后自动将`showingAlert`设置为`false`。
+
+这是该项目概述的最后一部分，因此几乎是开始使用真实代码的时候了。 如果要保存已编程的示例，则应将项目目录复制到其他位置。
+
+准备就绪后，将 `ContentView.swift`放回您最初创建项目时的开始方式，这样我们就可以从头开始。

@@ -51,3 +51,97 @@ Text("\(sleepAmount, specifier: "%.2f") hours")
 ```
 
 我们可以在这里使用它，但看起来很奇怪：“ 8.00小时”似乎过于学术。 这是“％g”说明符在起作用的一个很好的例子，因为它会自动从数字末尾删除不重要的零。 因此，它将显示8、8.25、8.5、8.75、9，依此类推，用户阅读起来自然得多。
+
+## 使用DatePicker选择日期和时间
+
+SwiftUI为我们提供了一种称为`DatePicker`的专用选择器类型，可以将它绑定到`date`属性。 是的，Swift具有专用于处理日期的类型，它被称为`date`。
+
+因此，要使用它，您首先需要使用`@State`属性，例如：
+
+```swift
+@State private var wakeUp = Date()
+```
+
+然后，您可以将其绑定到日期选择器，如下所示：
+
+```swift
+var body: some View {
+    DatePicker("Please enter a date", selection: $wakeUp)
+}
+```
+
+尝试在模拟器中运行它，以便查看外观。 您应该看到带有日期和时间的滚轮，以及左侧的“Please enter a date”标签。
+
+现在，您可能会认为该标签看起来很丑陋，尝试用以下标签替换它：
+
+```swift
+DatePicker("", selection: $wakeUp)
+```
+
+但是，如果这样做，您将遇到两个问题：日期选择器即使标签为空也仍然为标签留出空间，并且屏幕阅读器处于活动状态的用户（他们更熟悉VoiceOver）将不知道日期是为什么而选择器。
+
+有两种选择，都可以解决问题。
+
+第一，我们可以将`DatePicker`包装为一个`Form`：
+
+```swift
+var body: some View {
+    Form {
+        DatePicker("Please enter a date", selection: $wakeUp)
+    }
+}
+```
+
+就像常规的选择器一样，这会改变SwiftUI渲染视图的方式。 不过，这次我们没有将新视图推送到`NavigationView`上； 取而代之的是，我们得到一个列表行，当点击它时它会折叠成日期选择器。
+
+这看起来非常好，并且将表单的简洁性与日期选择器的熟悉的，基于转轮的用户界面相结合。 可悲的是，现在这些选择器的显示方式有时会出现一些故障。 我们稍后再讲。
+
+除了使用表单`Form`之外，另一种方法是使用`labelsHidden（）`修饰符，如下所示：
+
+```swift
+var body: some View {
+    DatePicker("Please enter a date", selection: $wakeUp)
+        .labelsHidden()
+}
+```
+
+该标签仍包含原始标签，因此屏幕阅读器可以将其用于VoiceOver，但是现在它们在屏幕上不再可见-日期选择器将占据屏幕上的所有水平空间。
+
+日期选择器为我们提供了几个配置选项，以控制它们的工作方式。 首先，我们可以使用`displayComponents`来决定用户应该看到的选项类型：
+
+- 如果您不提供此参数，则用户会看到一天，一小时和一分钟。
+- 如果使用`.date`，则用户可以查看月，日和年。
+- 如果使用`.hourAndMinute`，则用户只会看到小时和分钟部分。
+
+因此，我们可以选择这样的精确时间：
+
+```swift
+DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
+```
+
+最后，有一个`in`参数与在`Stepper`中的的工作原理相同：我们可以为它提供一个日期范围，并且日期选择器将确保用户不能选择超出范围。
+
+现在，我们已经使用一段时间了，您已经习惯看到`1 ... 5`或`0 .. <10` 之类的东西，但是我们也可以将Swift日期与范围一起使用。 例如：
+
+```swift
+// when you create a new Date instance it will be set to the current date and time
+let now = Date()
+
+// create a second Date instance set to one day in seconds from now
+let tomorrow = Date().addingTimeInterval(86400)
+
+// create a range from those two
+let range = now ... tomorrow
+```
+
+ 译者注：上述方法需要放在`var body`里面，否则会报错`Cannot use instance member 'now' within property initializer; property initializers run before 'self' is available`
+
+这对于DatePicker确实有用，但还有更好的地方：我们指定起始或结束范围,但不同时指定两个范围。Swift会形成一个单边范围，而另一边由Swift推断。
+
+例如，我们可以这样创建一个日期选择器：
+
+```swift
+DatePicker("Please enter a date", selection: $wakeUp, in: Date()...)
+```
+
+这将允许将来的所有日期，但不允许过去的所有日期。读作“从当前日期到任何日期”。

@@ -1,7 +1,7 @@
-# 1. 步进器Stepper, DatePicker, DateFormatter
+# 1. 步进器Stepper, DatePicker, DateFormatter基础
 <!-- TOC -->
 
-- [步进器Stepper, DatePicker, DateFormatter](#步进器stepper-datepicker-dateformatter)
+- [步进器Stepper, DatePicker, DateFormatter基础](#步进器stepper-datepicker-dateformatter基础)
     - [用步进器输入数值](#用步进器输入数值)
     - [使用DatePicker选择日期和时间](#使用datepicker选择日期和时间)
     - [处理日期](#处理日期)

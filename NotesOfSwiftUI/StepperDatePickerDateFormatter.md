@@ -1,11 +1,11 @@
 # 1. 步进器Stepper, DatePicker, DateFormatter基础
 <!-- TOC -->
 
-- [步进器Stepper, DatePicker, DateFormatter基础](#步进器stepper-datepicker-dateformatter基础)
-    - [用步进器输入数值](#用步进器输入数值)
-    - [使用DatePicker选择日期和时间](#使用datepicker选择日期和时间)
-    - [处理日期](#处理日期)
-    - [使用Create ML训练模型](#使用create-ml训练模型)
+- [1. 步进器Stepper, DatePicker, DateFormatter基础](#1-步进器stepper-datepicker-dateformatter基础)
+    - [1.1. 用步进器输入数值](#11-用步进器输入数值)
+    - [1.2. 使用DatePicker选择日期和时间](#12-使用datepicker选择日期和时间)
+    - [1.3. 处理日期](#13-处理日期)
+    - [1.4. 使用Create ML训练模型](#14-使用create-ml训练模型)
 
 <!-- /TOC -->
 

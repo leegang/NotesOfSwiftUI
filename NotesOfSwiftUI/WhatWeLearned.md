@@ -2,12 +2,12 @@
 
 <!-- TOC -->
 
-- [第一阶段总结](#第一阶段总结)
-    - [总结我们学到的](#总结我们学到的)
-    - [关键点](#关键点)
-        - [结构体Structs vs 类classes](#结构体structs-vs-类classes)
-        - [使用ForEach](#使用foreach)
-        - [使用绑定 bindings](#使用绑定-bindings)
+- [1. 第一阶段总结](#1-第一阶段总结)
+    - [1.1. 总结我们学到的](#11-总结我们学到的)
+    - [1.2. 关键点](#12-关键点)
+        - [1.2.1. 结构体Structs vs 类classes](#121-结构体structs-vs-类classes)
+        - [1.2.2. 使用ForEach](#122-使用foreach)
+        - [1.2.3. 使用绑定 bindings](#123-使用绑定-bindings)
 
 <!-- /TOC -->
 

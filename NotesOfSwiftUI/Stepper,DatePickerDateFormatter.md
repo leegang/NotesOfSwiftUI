@@ -1,6 +1,12 @@
-# 步进器Stepper, DatePicker, DateFormatter
+# 1. 步进器Stepper, DatePicker, DateFormatter
+<!-- TOC -->
 
-## 用步进器输入数值
+- [1. 步进器Stepper, DatePicker, DateFormatter](#1-步进器stepper-datepicker-dateformatter)
+    - [1.1. 用步进器输入数值](#11-用步进器输入数值)
+
+<!-- /TOC -->
+
+## 1.1. 用步进器输入数值
 
 SwiftUI有两种让用户输入数字的方式，而我们将在这里使用的一种是步进器：一个简单的`-`和`+`按钮，可以点击来选择一个精确的数字。 另一个选择是`Slider`，我们稍后将使用它，它也使我们可以从一系列值中进行选择，但不太精确。
 
